@@ -36,8 +36,18 @@ exports.shortUrlVisit = (req, res, next) => {
         res.json({ error: "invalid url" });
         return;
       }
+      if(isValidURL(myURL) === false) {
+            res.json({ error: "invalid url" });
+            return;
+      }
       if (req.params.short_url === data.short_url) {
             res.redirect(data.original_url);
       }    
     }) ;
 }
+
+
+function isValidURL(string) {
+    var res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+    return (res !== null)
+};
